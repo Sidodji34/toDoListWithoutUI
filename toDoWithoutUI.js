@@ -7,16 +7,13 @@ const list = {
   "write a post": "To Do",
 };
 function changeStatus(task, changeStatus) {
-  for (let searchTask in list) {
-    if (task === searchTask) {
+    if (task in list) {
       if (changeStatus === TODO || changeStatus === IN_PROGRESS || changeStatus === DONE) {
-        list[searchTask] = changeStatus;
+        list[task] = changeStatus;
         return list;
       } return 'Status is not valid';
-    }
   } return 'Task is not found';
 };
-
 function addTask(addTask) {
   list[addTask] = TODO;
   return list;
@@ -26,7 +23,7 @@ function deleteTask(deleteTask) {
     delete list[deleteTask];
     return list;
   } else {
-    return 'Task not found';
+    return 'Task is not found';
   }
 };
 function showList() {
@@ -42,8 +39,8 @@ function showList() {
       done += ` "${searchStatus}", \n`
     } 
   } if (!toDo) toDo = `-\n`;
-    else if (!inProgress) inProgress = `-\n`;
-    else if (!done) done = `-\n`;
+    if (!inProgress) inProgress = `-\n`;
+    if (!done) done = `-\n`;
     
     return (`Todo:\n${toDo}` + `In Progress:\n${inProgress}` + `Done:\n${done}`);
 }
